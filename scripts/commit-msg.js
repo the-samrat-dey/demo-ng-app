@@ -30,5 +30,3 @@ if (!commitMessageRegex.test(commitMsg)) {
   displayErrorMessage();
   process.exit(1); // Reject the commit
 }
-
-console.log(`${colors.green}Commit message format is valid!${colors.reset}`);
