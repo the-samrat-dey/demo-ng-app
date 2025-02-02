@@ -10,19 +10,11 @@ execSync('npx husky', { stdio: 'inherit' });
 
 // Path to the pre-commit hook file
 const preCommitHookPath = path.resolve('.husky', 'pre-commit');
+const preCommitJSPath = path.resolve('scripts', 'pre-commit.js');
 
 // Create or overwrite the pre-commit hook file with the desired script
 const preCommitScript = `# Run lint-staged to lint and format code before commit
-npx --no-install lint-staged
-if [ $? -ne 0 ]; then
-  # For Unix-like systems (bash, zsh, etc.)
-  if [ -t 1 ]; then
-    echo "\\033[1;31m❌ Commit rejected! Linting or formatting failed. Please fix the errors and try again.\\033[0m"
-  else
-    echo "❌ Commit rejected! Linting or formatting failed. Please fix the errors and try again."
-  fi
-  exit 1
-fi
+node ./scripts/pre-commit.js
 `;
 
 // Ensure .husky directory exists
@@ -39,6 +31,7 @@ if (process.platform !== 'win32') {
   try {
     console.log('✅ Setting execute permissions on pre-commit hook...');
     execSync(`chmod +x ${preCommitHookPath}`, { stdio: 'inherit' });
+    execSync(`chmod +x ${preCommitJSPath}`, { stdio: 'inherit' });
   } catch (err) {
     console.error('❌ Error setting execute permissions in your Unix-like system.');
     process.exit(1);
