@@ -33,6 +33,7 @@ console.log(resolve(projectRoot, '.lintstagedrc.json'));
 // Run lint-staged with configuration
 import('lint-staged').then(lintStaged => {
   lintStaged.default(lintStagedConfig).catch(() => {
+    console.log("+++++++++++++++++++++++++++++++++lllllllllllllllllllllll");
     console.error(
       chalk.bold.red(
         '❌ Commit rejected! Linting or formatting failed. Please fix the errors and try again.'
