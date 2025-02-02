@@ -1,5 +1,16 @@
 {
-  "*.{ts,js}": ["npm run prettier:fix", "npm run lint"],
-  "*.html": ["npm run prettier:fix", "npm run lint"],
-  "*.{css,scss,json,md}": ["npm run prettier:fix"]
+  "*.ts": [
+    "prettier --write",
+    "git add",
+    "npm run lint"
+  ],
+  "*.html": [
+    "prettier --write",
+    "npm run lint",
+    "git add"
+  ],
+  "*.scss": [
+    "npm run lint",
+    "git add"
+  ]
 }

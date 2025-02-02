@@ -30,15 +30,30 @@ const lintStagedConfig = {
 
 console.log(resolve(projectRoot, '.lintstagedrc.json'));
 
-// Run lint-staged with configuration
-import('lint-staged').then(lintStaged => {
-  lintStaged.default(lintStagedConfig).catch(() => {
-    console.log('+++++++++++++++++++++++++++++++++lllllllllllllllllllllll');
-    console.error(
-      chalk.bold.red(
-        '❌ Commit rejected! Linting or formatting failed. Please fix the errors and try again.'
-      )
-    );
+async function runLintStaged() {
+  try {
+    const lintStaged = await import('lint-staged');
+
+    const lintStagedConfig = {
+      allowEmpty: false,
+      relative: true,
+      concurrent: true,
+      maxArgLength: null,
+      configPath: resolve(projectRoot, '.lintstagedrc.json')
+    };
+
+    const success = await lintStaged.default(lintStagedConfig);
+
+    if (!success) {
+      console.error('\x1b[1m\x1b[31m%s\x1b[0m', '❌ Lint errors found. Fix them before committing.');
+
+      process.exit(1);
+    }
+  } catch (error) {
+    console.error('\x1b[1m\x1b[31m%s\x1b[0m', '❌ Failed to run lint-staged.');
+    console.error(error);
     process.exit(1);
-  });
-});
+  }
+}
+
+runLintStaged();
