@@ -7,10 +7,9 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title =
+  public readonly title =
     'demo-ng-app sdf   sd fd sf ds f ds fd  f df sd f sd f d f dsf ds f sd f ds f sdf  sdf ds f ds f ds f ds f dsf ds f ds f sdf dsf d';
 
-  as = 123;
-  sadasdas = 'safsfsa';
-  asasa = setFlagsFromString;
+  private readonly _as12 = this.title;
+  public sadasdas = 'safsfsa';
 }
