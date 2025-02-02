@@ -1,0 +1,46 @@
+{
+  // Line ending and file handling settings
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+
+  // File type associations
+  "files.associations": {
+    "*.json": "jsonc",
+    "*.ts": "typescript",
+    "*.js": "javascript",
+    "*.html": "html",
+    "*.scss": "scss"
+  },
+
+  // Editor visualization settings
+  "editor.renderControlCharacters": true,
+  "editor.renderWhitespace": "boundary",
+
+  // Git integration settings
+  "git.allowForcePush": false,
+  "git.autofetch": true,
+
+  // File encoding settings
+  "files.encoding": "utf8",
+
+  // Whitespace handling
+  "diffEditor.ignoreTrimWhitespace": false,
+  "files.trimFinalNewlines": true,
+
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.preferences.importModuleSpecifier": "non-relative"
+}
