@@ -11,5 +11,4 @@ export class AppComponent {
     'demo-ng-app sdf   sd fd sf ds f ds fd  f df sd f sd f d f dsf ds f sd f ds f sdf  sdf ds f ds f ds f ds f dsf ds f ds f sdf dsf d';
 
   as = 123;
-  dad = 454;
 }
