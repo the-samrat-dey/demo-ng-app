@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:demo-ng-app": "node dist/demo-ng-app/server/server.mjs",
-    "lint": "ng lint --no-fix || exit 1",
+    "lint": "ng lint || exit 1",
     "lint:fix": "ng lint --fix",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",

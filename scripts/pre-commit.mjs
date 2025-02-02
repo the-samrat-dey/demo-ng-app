@@ -1,9 +1,6 @@
 import { createRequire } from 'module';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { readFileSync } from 'fs';
-
-import chalk from 'chalk';
 
 // Create a require function for loading packages (ES modules)
 const require = createRequire(import.meta.url);
