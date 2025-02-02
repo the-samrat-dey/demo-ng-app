@@ -9,7 +9,7 @@
     "test": "ng test",
     "serve:ssr:demo-ng-app": "node dist/demo-ng-app/server/server.mjs",
     "lint": "ng lint || exit 1",
-    "lint:fix": "ng lint --fix",
+    "lint:fix": "ng lint --fix || exit 1",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "prepare": "node scripts/setup-hooks.js"

@@ -14,7 +14,7 @@ const preCommitJSPath = path.resolve('scripts', 'pre-commit.js');
 
 // Create or overwrite the pre-commit hook file with the desired script
 const preCommitScript = `# Run lint-staged to lint and format code before commit
-node ./scripts/pre-commit.js
+node ./scripts/pre-commit.mjs
 `;
 
 // Ensure .husky directory exists

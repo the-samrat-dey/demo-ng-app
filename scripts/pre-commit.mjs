@@ -25,8 +25,6 @@ const lintStagedConfig = {
   configPath: resolve(projectRoot, '.lintstagedrc.json')
 };
 
-console.log(resolve(projectRoot, '.lintstagedrc.json'));
-
 async function runLintStaged() {
   try {
     const lintStaged = await import('lint-staged');
