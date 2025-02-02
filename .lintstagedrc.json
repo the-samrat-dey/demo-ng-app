@@ -1,16 +1,13 @@
 {
   "*.ts": [
     "prettier --write",
-    "npm run lint",
-    "git add"
+    "npm run lint"
   ],
   "*.html": [
     "prettier --write",
-    "npm run lint",
-    "git add"
+    "npm run lint"
   ],
   "*.scss": [
-    "npm run lint",
-    "git add"
+    "npm run lint"
   ]
 }
