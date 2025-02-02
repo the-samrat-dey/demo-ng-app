@@ -1,11 +1,5 @@
 {
-  "*.{ts,js}": [
-    "npm run prettier:fix",
-    "npm run lint:fix || (node -e \"console.error('\u001b[1m\u001b[31m❌ Linting failed in TypeScript/JavaScript files. Please fix the above errors before committing.\u001b[0m'); process.exit(1)\")"
-  ],
-  "*.html": [
-    "npm run prettier:fix",
-    "npm run lint:fix || (node -e \"console.error('\u001b[1m\u001b[31m❌ Linting failed in HTML files. Please fix the above errors before committing.\u001b[0m'); process.exit(1)\")"
-  ],
+  "*.{ts,js}": ["npm run prettier:fix", "npm run lint:fix"],
+  "*.html": ["npm run prettier:fix", "npm run lint:fix"],
   "*.{css,scss,json,md}": ["npm run prettier:fix"]
 }

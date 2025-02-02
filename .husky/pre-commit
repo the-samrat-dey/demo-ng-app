@@ -1,8 +1,11 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
 # Run lint-staged to lint and format code before commit
-npx --no-install lint-staged || {
-  echo "[1;31m❌ Commit rejected! Linting or formatting failed. Please fix the errors and try again.[0m"
+npx --no-install lint-staged
+if [ $? -ne 0 ]; then
+  # For Unix-like systems (bash, zsh, etc.)
+  if [ -t 1 ]; then
+    echo "\033[1;31m❌ Commit rejected! Linting or formatting failed. Please fix the errors and try again.\033[0m"
+  else
+    echo "❌ Commit rejected! Linting or formatting failed. Please fix the errors and try again."
+  fi
   exit 1
-}
+fi

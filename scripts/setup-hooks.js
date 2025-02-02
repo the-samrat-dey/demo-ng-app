@@ -12,14 +12,17 @@ execSync('npx husky', { stdio: 'inherit' });
 const preCommitHookPath = path.resolve('.husky', 'pre-commit');
 
 // Create or overwrite the pre-commit hook file with the desired script
-const preCommitScript = `#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-# Run lint-staged to lint and format code before commit
-npx --no-install lint-staged || {
-  echo "\x1b[1;31m❌ Commit rejected! Linting or formatting failed. Please fix the errors and try again.\x1b[0m"
+const preCommitScript = `# Run lint-staged to lint and format code before commit
+npx --no-install lint-staged
+if [ $? -ne 0 ]; then
+  # For Unix-like systems (bash, zsh, etc.)
+  if [ -t 1 ]; then
+    echo "\\033[1;31m❌ Commit rejected! Linting or formatting failed. Please fix the errors and try again.\\033[0m"
+  else
+    echo "❌ Commit rejected! Linting or formatting failed. Please fix the errors and try again."
+  fi
   exit 1
-}
+fi
 `;
 
 // Ensure .husky directory exists
