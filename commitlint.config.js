@@ -15,13 +15,20 @@ module.exports = {
       ]
     ],
     'subject-empty': [2, 'never'],
-    'subject-case': [2, 'always', 'lower-case'], // Subject in lower-case
-    'header-max-length': [2, 'always', 100], // Limit header length
-    'body-max-length': [2, 'always', 1000], // Limit body length
+    'subject-case': [2, 'always', 'lower-case'],
+    'header-max-length': [2, 'always', 100],
+    'body-max-length': [2, 'always', 1000],
     'footer-empty': [2, 'never'],
-    'footer-max-length': [2, 'always', 1000], // Limit footer length
-    'type-case': [2, 'always', 'lower-case'], // Type should be in lowercase
-    'subject-full-stop': [2, 'never', '.'], // No full stop at the end of subject
-    'references-empty': [2, 'never']
+    'footer-max-length': [2, 'always', 1000],
+    'type-case': [2, 'always', 'lower-case'],
+    'subject-full-stop': [2, 'never', '.'],
+    'references-empty': [2, 'never'],
+
+    // Custom rule for task number format (e.g., #1234)
+    'subject-task-number': [
+      2,
+      'always',
+      /\s#\d+/ // Matches a space followed by a # and digits (task number format)
+    ]
   }
 };
