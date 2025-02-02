@@ -17,8 +17,9 @@ const commitMsgPath = path.resolve('.husky', 'commit-msg');
 const preCommitScript = `node ./scripts/pre-commit.mjs`;
 
 // Create or overwrite the commit-msg hook file with the desired script
-const commitMsgScript = `npx --no-install commitlint --edit $1`;
-
+const commitMsgScript = `# Run the commit-msg validation with the JavaScript file
+node ./scripts/commit-msg.js "$1"
+`;
 
 // Ensure .husky directory exists
 if (!fs.existsSync(path.resolve('.husky'))) {

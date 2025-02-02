@@ -29,6 +29,7 @@ module.exports = {
       2,
       'always',
       /\s#\d+/ // Matches a space followed by a # and digits (task number format)
+      /* /#\d+$/ // Matches a task number at the end of the message (e.g., #1234) */
     ]
   }
 };
