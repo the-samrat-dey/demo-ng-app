@@ -1,10 +1,7 @@
 body {
-  color: white;
-  display: block;
-  background-color: #f00;
   position: relative;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
+  inset: 0;
+  display: block;
+  color: #f00;
+  background-color: #f00;
 }

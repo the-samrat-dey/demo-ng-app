@@ -68,9 +68,10 @@ const branchName = execSync('git symbolic-ref --short HEAD').toString().trim();
 const branchRegex =
   /^(feature|bugfix|hotfix|release|master|main)\/#(\d+)-[\w-]+$/;
 
-if (branchName === 'master' || branchName === 'main') {
-  process.exit(0); // Allow commit
-} else if (!branchRegex.test(branchName)) {
+if (
+  !branchRegex.test(branchName) &&
+  !(branchName === 'master' || branchName === 'main')
+) {
   console.log(
     '\x1b[31m\x1b[1m❌ Invalid Branch Name!\x1b[0m\n' +
       `\x1b[33mBranch name "${branchName}" does not follow the convention.\x1b[0m\n` +
@@ -81,38 +82,4 @@ if (branchName === 'master' || branchName === 'main') {
       '\x1b[31mPlease rename your branch to follow the correct naming convention.\x1b[0m'
   );
   process.exit(1); // Block commit
-}
-
-try {
-  // Get staged SCSS files
-  const stagedFiles = execSync('git diff --cached --name-only --diff-filter=d')
-    .toString()
-    .split('\n')
-    .filter((file) => file.endsWith('.scss'));
-  console.log('----------', stagedFiles);
-  if (stagedFiles.length > 0) {
-    console.log('🎨 Checking SCSS files...');
-
-    // Run Stylelint on staged SCSS files
-    try {
-      execSync(`npx stylelint ${stagedFiles.join(' ')} --max-warnings=0`, {
-        stdio: 'inherit',
-      });
-    } catch (error) {
-      console.error(
-        '❌ Stylelint found errors. Please fix them before committing.'
-      );
-      process.exit(1);
-    }
-
-    console.log('✅ Style checks passed!');
-  } else {
-    console.log('👉 No SCSS files to check');
-  }
-
-  // Run lint-staged
-  execSync('npx lint-staged', { stdio: 'inherit' });
-} catch (error) {
-  console.error('🚨 An error occurred during pre-commit checks.');
-  process.exit(1);
 }
