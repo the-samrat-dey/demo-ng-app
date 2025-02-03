@@ -2,8 +2,8 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-// Run husky init to set up Git hooks
 execSync('ng analytics off', { stdio: 'inherit' });
+execSync('git config --global core.autocrlf input', { stdio: 'inherit' });
 
 // Run husky init to set up Git hooks
 execSync('npx husky', { stdio: 'inherit' });
@@ -23,7 +23,9 @@ node ./scripts/commit-msg.js "$1"
 
 // Ensure .husky directory exists
 if (!fs.existsSync(path.resolve('.husky'))) {
-  console.error('❌ .husky directory not found! Please create the .husky directory first.');
+  console.error(
+    '❌ .husky directory not found! Please create the .husky directory first.'
+  );
   process.exit(1); // Exit the script with an error code
 }
 
@@ -40,7 +42,9 @@ if (process.platform !== 'win32') {
     execSync(`chmod +x ${preCommitJSPath}`, { stdio: 'inherit' });
     execSync(`chmod +x ${commitMsgPath}`, { stdio: 'inherit' });
   } catch (err) {
-    console.error('❌ Error setting execute permissions in your Unix-like system.');
+    console.error(
+      '❌ Error setting execute permissions in your Unix-like system.'
+    );
     process.exit(1);
   }
 }
