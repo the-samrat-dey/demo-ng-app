@@ -12,7 +12,9 @@ const projectRoot = resolve(__dirname, '..');
 try {
   require.resolve('lint-staged');
 } catch (error) {
-  console.error('Required packages are missing. Please run "npm install" first.');
+  console.error(
+    'Required packages are missing. Please run "npm install" first.'
+  );
   process.exit(1);
 }
 
@@ -63,7 +65,8 @@ const branchName = execSync('git symbolic-ref --short HEAD').toString().trim();
 // Pattern: #[a-z,A-Z]_[0-9], #[0-9]_[a-z,A-Z], #[0-9]_[0-9], #[a-z,A-Z]_[a-z,A-Z], #[0-9], #[a-z,A-Z], #[0-9,a-z,A-Z], #[a-z, A-Z, 0-9]. Below is the regex
 // /^(feature|bugfix|hotfix|release)\/#[a-zA-Z]_[0-9]|#[0-9]_[a-zA-Z]|#[0-9]_[0-9]|#[a-zA-Z]_[a-zA-Z]|#[0-9]|#[a-zA-Z]|#[0-9a-zA-Z]|#[a-zA-Z0-9]-[\w-]+$/;
 // Pattern: #[0-9]. Regex: /^(feature|bugfix|hotfix|release)\/#(\d+)-[\w-]+$/
-const branchRegex = /^(feature|bugfix|hotfix|release|master|main)\/#(\d+)-[\w-]+$/;
+const branchRegex =
+  /^(feature|bugfix|hotfix|release|master|main)\/#(\d+)-[\w-]+$/;
 
 if (branchName === 'master' || branchName === 'main') {
   process.exit(0); // Allow commit
@@ -78,6 +81,38 @@ if (branchName === 'master' || branchName === 'main') {
       '\x1b[31mPlease rename your branch to follow the correct naming convention.\x1b[0m'
   );
   process.exit(1); // Block commit
-} else {
-  process.exit(0); // Allow commit
+}
+
+try {
+  // Get staged SCSS files
+  const stagedFiles = execSync('git diff --cached --name-only --diff-filter=d')
+    .toString()
+    .split('\n')
+    .filter((file) => file.endsWith('.scss'));
+
+  if (stagedFiles.length > 0) {
+    console.log('🎨 Checking SCSS files...');
+
+    // Run Stylelint on staged SCSS files
+    try {
+      execSync(`npx stylelint ${stagedFiles.join(' ')} --max-warnings=0`, {
+        stdio: 'inherit',
+      });
+    } catch (error) {
+      console.error(
+        '❌ Stylelint found errors. Please fix them before committing.'
+      );
+      process.exit(1);
+    }
+
+    console.log('✅ Style checks passed!');
+  } else {
+    console.log('👉 No SCSS files to check');
+  }
+
+  // Run lint-staged
+  execSync('npx lint-staged', { stdio: 'inherit' });
+} catch (error) {
+  console.error('🚨 An error occurred during pre-commit checks.');
+  process.exit(1);
 }
