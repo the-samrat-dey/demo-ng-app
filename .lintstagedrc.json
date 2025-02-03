@@ -3,7 +3,6 @@
   "*.html": ["npx pretty-quick --staged", "npm run lint"],
   "*.{css,scss,sass,less}": [
     "npx pretty-quick --staged",
-    "stylelint --fix",
     "stylelint --max-warnings 0 || exit 1"
   ],
   "*.{json,md,yml,yaml}": ["npx pretty-quick --staged"]
