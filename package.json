@@ -12,6 +12,8 @@
     "lint:fix": "ng lint --fix || exit 1",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
+    "lint:styles": "stylelint \"src/**/*.{css,scss,less}\"",
+    "lint:styles:fix": "stylelint \"src/**/*.{css,scss,less}\" --fix",
     "prepare": "node scripts/setup-hooks.js"
   },
   "private": true,
@@ -51,6 +53,16 @@
     "karma-jasmine-html-reporter": "2.1.0",
     "lint-staged": "15.4.3",
     "prettier": "3.4.2",
+    "pretty-quick": "^4.0.0",
+    "stylelint": "^16.14.1",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-recommended-less": "^3.0.1",
+    "stylelint-config-standard": "^37.0.0",
+    "stylelint-config-standard-less": "^3.0.1",
+    "stylelint-config-standard-scss": "^14.0.0",
+    "stylelint-declaration-block-no-ignored-properties": "^2.8.0",
+    "stylelint-order": "^6.0.4",
+    "stylelint-scss": "^6.11.0",
     "typescript": "5.7.2",
     "typescript-eslint": "8.18.0"
   }

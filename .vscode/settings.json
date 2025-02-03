@@ -31,16 +31,35 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "source.fixAll": "always"
+    "source.fixAll.stylelint": "explicit"
   },
+  "stylelint.validate": ["css", "scss", "less", "postcss"],
+  "scss.validate": false,
+  "css.validate": false,
+  "less.validate": false,
+  "stylelint.snippet": ["css", "less", "postcss", "scss"],
+  "editor.rulers": [100, 120],
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
   },
   "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
   },
   "[scss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
   },
-  "typescript.preferences.importModuleSpecifier": "non-relative"
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "prettier.configPath": ".prettierrc",
+  "prettier.ignorePath": ".prettierignore"
 }

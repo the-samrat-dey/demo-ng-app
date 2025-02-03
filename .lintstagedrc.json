@@ -1,13 +1,6 @@
 {
-  "*.ts": [
-    "prettier --write",
-    "npm run lint"
-  ],
-  "*.html": [
-    "prettier --write",
-    "npm run lint"
-  ],
-  "*.scss": [
-    "npm run lint"
-  ]
+  "*.{js,jsx,ts,tsx}": ["npx pretty-quick --staged", "npm run lint"],
+  "*.html": ["npx pretty-quick --staged", "npm run lint"],
+  "*.{css,scss,sass,less}": ["npx pretty-quick --staged"],
+  "*.{json,md,yml,yaml}": ["npx pretty-quick --staged"]
 }

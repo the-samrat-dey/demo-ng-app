@@ -21,11 +21,13 @@ const commitMessageRegex = /^(feat|fix|docs|style|refactor|chore|test): #\d+ .+/
 
 // Function to display the error message and guidelines
 const displayErrorMessage = () => {
-  console.log(`${colors.red}ERROR: Commit message format is invalid!${colors.reset}`);
-  console.log(`${colors.yellow}Correct format: <type>: #<task-number> <message>${colors.reset}`);
-  console.log(`${colors.green}Example: feat: #1234 Add new login feature${colors.reset}`);
-  console.log(`${colors.green}Valid Types are: feat, fix, docs, style, refactor, chore, test${colors.reset}`);
-  console.log(`${colors.green}Please refer to the guidelines for more information!${colors.reset}`);
+  console.log(
+    `${colors.red}ERROR: Commit message format is invalid!${colors.reset}\n` +
+      `${colors.yellow}Correct format: <type>: #<task-number> <message>${colors.reset}\n` +
+      `${colors.green}Example: feat: #1234 Add new login feature${colors.reset}\n` +
+      `${colors.green}Valid Types are: feat, fix, docs, style, refactor, chore, test${colors.reset}\n` +
+      `${colors.green}Please refer to the guidelines for more information!${colors.reset}`
+  );
 };
 
 // Validate the commit message

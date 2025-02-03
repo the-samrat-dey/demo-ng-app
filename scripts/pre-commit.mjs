@@ -11,7 +11,6 @@ const projectRoot = resolve(__dirname, '..');
 // Check if required packages are available
 try {
   require.resolve('lint-staged');
-  require.resolve('chalk');
 } catch (error) {
   console.error('Required packages are missing. Please run "npm install" first.');
   process.exit(1);
@@ -23,7 +22,7 @@ const lintStagedConfig = {
   relative: true, // Use relative paths
   concurrent: true, // Run tasks concurrently when possible
   maxArgLength: null, // Don't limit command line arguments
-  configPath: resolve(projectRoot, '.lintstagedrc.json')
+  configPath: resolve(projectRoot, '.lintstagedrc.json'),
 };
 
 async function runLintStaged() {
@@ -35,13 +34,16 @@ async function runLintStaged() {
       relative: true,
       concurrent: true,
       maxArgLength: null,
-      configPath: resolve(projectRoot, '.lintstagedrc.json')
+      configPath: resolve(projectRoot, '.lintstagedrc.json'),
     };
 
     const success = await lintStaged.default(lintStagedConfig);
 
     if (!success) {
-      console.error('\x1b[1m\x1b[31m%s\x1b[0m', '❌ Lint errors found. Fix them before committing.');
+      console.error(
+        '\x1b[1m\x1b[31m%s\x1b[0m',
+        '❌ Lint errors found. Fix them before committing.'
+      );
 
       process.exit(1);
     }
@@ -54,7 +56,6 @@ async function runLintStaged() {
 
 runLintStaged();
 
-
 // Fetch the current branch name
 const branchName = execSync('git symbolic-ref --short HEAD').toString().trim();
 
@@ -64,21 +65,18 @@ const branchName = execSync('git symbolic-ref --short HEAD').toString().trim();
 // Pattern: #[0-9]. Regex: /^(feature|bugfix|hotfix|release)\/#(\d+)-[\w-]+$/
 const branchRegex = /^(feature|bugfix|hotfix|release|master|main)\/#(\d+)-[\w-]+$/;
 
-if (branchName === "master" || branchName === "main") {
-  console.log('\x1b[32mYou are on the master or main branch. Commit is allowed without naming convention.\x1b[0m');
+if (branchName === 'master' || branchName === 'main') {
   process.exit(0); // Allow commit
 } else if (!branchRegex.test(branchName)) {
-  // Red text for error
-  console.log('\x1b[31m\x1b[1m❌ Invalid Branch Name!\x1b[0m');
-  console.log(`\x1b[33mBranch name "${branchName}" does not follow the convention.\x1b[0m`);
-  console.log('');
-  console.log('\x1b[34mValid formats are:\x1b[0m');
-  console.log('\x1b[32m  feature/Task1-123-feature-name\x1b[0m');
-  console.log('\x1b[32m  bugfix/456-task2-bug-fix\x1b[0m');
-  console.log('\x1b[32m  hotfix/789-hotfix-description\x1b[0m');
-  console.log('');
-  // Red text for blocking message
-  console.log('\x1b[31mPlease rename your branch to follow the correct naming convention.\x1b[0m');
+  console.log(
+    '\x1b[31m\x1b[1m❌ Invalid Branch Name!\x1b[0m\n' +
+      `\x1b[33mBranch name "${branchName}" does not follow the convention.\x1b[0m\n` +
+      '\x1b[34mValid formats are:\x1b[0m\n' +
+      '\x1b[32m  feature/Task1-123-feature-name\x1b[0m\n' +
+      '\x1b[32m  bugfix/456-task2-bug-fix\x1b[0m\n' +
+      '\x1b[32m  hotfix/789-hotfix-description\x1b[0m\n' +
+      '\x1b[31mPlease rename your branch to follow the correct naming convention.\x1b[0m'
+  );
   process.exit(1); // Block commit
 } else {
   process.exit(0); // Allow commit
