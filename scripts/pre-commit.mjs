@@ -89,7 +89,7 @@ try {
     .toString()
     .split('\n')
     .filter((file) => file.endsWith('.scss'));
-
+  console.log('----------', stagedFiles);
   if (stagedFiles.length > 0) {
     console.log('🎨 Checking SCSS files...');
 
