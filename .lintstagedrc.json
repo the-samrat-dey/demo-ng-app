@@ -2,8 +2,8 @@
   "*.{js,jsx,ts,tsx}": ["npx pretty-quick --staged", "npm run lint"],
   "*.html": ["npx pretty-quick --staged", "npm run lint"],
   "*.{css,scss,sass,less}": [
-    "npx pretty-quick --staged",
-    "bash -c 'npm run lint:styles || (echo \"🚨 Stylelint failed!\" && exit 1)'"
+    "bash -c 'npm run lint:styles || (echo \"🚨 Stylelint failed!\" && exit 1)'",
+    "npx pretty-quick --staged"
   ],
   "*.{json,md,yml,yaml}": ["npx pretty-quick --staged"]
 }
