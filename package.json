@@ -12,7 +12,7 @@
     "lint:fix": "ng lint --fix || exit 1",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "lint:styles": "stylelint \"src/**/*.scss\" --max-warnings 0",
+    "lint:styles": "stylelint \"src/**/*.scss\" --max-warnings 0 || exit 1",
     "lint:styles:fix": "stylelint \"src/**/*.scss\" --fix",
     "prepare": "node scripts/setup-hooks.js"
   },
