@@ -3,6 +3,7 @@ import { mergeApplicationConfig } from '@angular/core';
 import type { ApplicationConfig } from '@angular/core'; // Type-only import
 import { provideServerRendering } from '@angular/platform-server';
 import { provideServerRouting } from '@angular/ssr';
+
 import { appConfig } from './app.config';
 import { serverRoutes } from './app.routes.server';
 
