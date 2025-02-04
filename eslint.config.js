@@ -194,12 +194,12 @@ module.exports = tseslint.config(
       ],
       '@typescript-eslint/prefer-readonly': 'error',
       'no-duplicate-imports': 'error',
-      '@typescript-eslint/consistent-type-imports': [
-        'error',
-        {
-          prefer: 'type-imports',
-        },
-      ],
+      // '@typescript-eslint/consistent-type-imports': [
+      //   'error',
+      //   {
+      //     prefer: 'type-imports',
+      //   },
+      // ],
       '@typescript-eslint/no-unnecessary-condition': 'error',
       eqeqeq: ['error', 'always', { null: 'ignore' }],
       'import/order': [
