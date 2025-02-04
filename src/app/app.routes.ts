@@ -1,5 +1,7 @@
 import type { Routes } from '@angular/router';
 
+import { AuthGuard } from './core/guards/auth.guard';
+import { RoleGuard } from './core/guards/role.guard';
 import { AuthComponent } from './features/auth/auth.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { UserDetailsComponent } from './features/user/user-details.component';
@@ -17,9 +19,11 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'users',
+    canActivate: [AuthGuard, RoleGuard],
     children: [
       {
         path: '',
@@ -33,6 +37,7 @@ export const routes: Routes = [
   },
   {
     path: 'profile',
+    canActivate: [AuthGuard],
     component: UserDetailsComponent,
   },
   {

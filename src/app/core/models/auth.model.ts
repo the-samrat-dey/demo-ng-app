@@ -1,4 +1,4 @@
-export enum UserRole {
+export enum UserRoleEnum {
   ADMIN = 'ADMIN',
   USER = 'USER',
 }
@@ -17,7 +17,7 @@ export interface IUser {
   id: string;
   username: string;
   email: string;
-  role: UserRole;
+  role: UserRoleEnum;
   status: UserStatus;
   isDeleted: boolean;
   deletedAt?: Date;

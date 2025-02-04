@@ -1,6 +1,5 @@
-import { provideZoneChangeDetection } from '@angular/core';
-// eslint-disable-next-line no-duplicate-imports
-import type { ApplicationConfig } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import {
   provideClientHydration,
   withEventReplay,
@@ -14,5 +13,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
+    provideHttpClient(),
   ],
 };
