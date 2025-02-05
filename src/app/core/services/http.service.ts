@@ -36,6 +36,12 @@ export class HttpService {
     });
   }
 
+  public patch<T, U>(url: string, body: U): Observable<T> {
+    return this._http.put<T>(`${API_CONFIG.BASE_URL}${url}`, body, {
+      headers: this._createHeaders(),
+    });
+  }
+
   public delete<T>(url: string): Observable<T> {
     return this._http.delete<T>(`${API_CONFIG.BASE_URL}${url}`, {
       headers: this._createHeaders(),

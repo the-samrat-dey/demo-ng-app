@@ -209,7 +209,7 @@ module.exports = tseslint.config(
             ['builtin', 'external'],
             ['internal', 'sibling', 'parent', 'index'],
           ],
-          'newlines-between': 'always',
+          'newlines-between': 'off',
           alphabetize: {
             order: 'asc',
             caseInsensitive: true,

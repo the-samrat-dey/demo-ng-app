@@ -2,8 +2,8 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+import type { ICredentials } from '@features/auth/auth.model';
 import { HttpService } from './http.service';
-import type { ICredentials } from '../../features/auth/auth.model';
 import { API_ENDPOINTS } from '../constants/api.constants';
 import { IUser, UserRoleEnum } from '../models/auth.model';
 

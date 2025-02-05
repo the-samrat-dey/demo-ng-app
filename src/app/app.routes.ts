@@ -9,11 +9,7 @@ import { UserListComponent } from './features/user/user-list.component';
 
 export const routes: Routes = [
   {
-    path: 'signin',
-    component: AuthComponent,
-  },
-  {
-    path: 'signup',
+    path: 'auth',
     component: AuthComponent,
   },
   {
