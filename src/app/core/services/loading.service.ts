@@ -34,27 +34,34 @@ export class LoadingService {
   );
 
   // Counter for concurrent requests
-  private requestCounter = signal(0);
+  private requestCounter = signal<number>(0);
 
   start(loadingText?: string): void {
-    const currentCount = this.requestCounter.update((count) => count + 1);
+    // Update counter and store the new value
+    const newCount = this.requestCounter() + 1;
+    this.requestCounter.set(newCount);
 
     this.loadingSubject.next({
       isLoading: true,
       loadingText,
-      requestCount: currentCount,
+      requestCount: newCount,
     });
   }
 
   stop(): void {
-    const currentCount = this.requestCounter.update((count) =>
-      Math.max(0, count - 1)
-    );
+    // Update counter and store the new value
+    const newCount = Math.max(0, this.requestCounter() - 1);
+    this.requestCounter.set(newCount);
 
-    if (currentCount === 0) {
+    if (newCount === 0) {
       this.loadingSubject.next({
         isLoading: false,
         requestCount: 0,
+      });
+    } else {
+      this.loadingSubject.next({
+        isLoading: true,
+        requestCount: newCount,
       });
     }
   }

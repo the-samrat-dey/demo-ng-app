@@ -22,7 +22,7 @@
     "baseUrl": "./",
     "paths": {
       "@assets/*": ["src/assets/*"],
-      "@environments/*": ["src/environments/*"],
+      "@env/*": ["src/environments/*"],
       "@styles/*": ["src/styles/*"],
       "@core/*": ["src/app/core/*"],
       "@features/*": ["src/app/features/*"],

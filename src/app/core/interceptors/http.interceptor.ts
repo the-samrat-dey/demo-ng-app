@@ -1,9 +1,14 @@
-// core/interceptors/http.interceptor.ts
-import { HttpErrorResponse, HttpInterceptorFn, HttpStatusCode } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpInterceptorFn,
+  HttpStatusCode,
+} from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
-import { EMPTY, Observable, throwError } from 'rxjs';
+import { ErrorService } from '@core/services/error.service';
+import { LoadingService } from '@core/services/loading.service';
+import { EMPTY, Observable, timer, throwError } from 'rxjs';
 import { catchError, finalize, retry, timeout } from 'rxjs/operators';
 
 // Custom error type for structured error handling
@@ -34,7 +39,7 @@ export const httpInterceptor: HttpInterceptorFn = (request, next) => {
   // Clone request and add headers
   const modifiedRequest = request.clone({
     setHeaders: getHeaders(),
-    withCredentials: true // Enable if you're using cookies
+    withCredentials: true, // Enable if you're using cookies
   });
 
   return next(modifiedRequest).pipe(
@@ -44,12 +49,19 @@ export const httpInterceptor: HttpInterceptorFn = (request, next) => {
     // Retry logic for specific status codes
     retry({
       count: INTERCEPTOR_CONFIG.MAX_RETRIES,
-      delay: calculateRetryDelay,
-      filter: (error: ) => shouldRetry(error)
+      delay: (error, retryCount) => {
+        if (!shouldRetry(error)) {
+          return throwError(() => error);
+        }
+        const delayMs = calculateRetryDelay(retryCount);
+        return timer(delayMs);
+      },
     }),
 
     // Error handling
-    catchError((error: HttpErrorResponse) => handleError(error, router, errorService)),
+    catchError((error: HttpErrorResponse) =>
+      handleError(error, router, errorService)
+    ),
 
     // Cleanup
     finalize(() => {
@@ -60,10 +72,13 @@ export const httpInterceptor: HttpInterceptorFn = (request, next) => {
 
 // Helper functions
 function getHeaders(): Record<string, string> {
-  const token = localStorage.getItem('token');
+  let token;
+  if (typeof window !== 'undefined' && localStorage) {
+    token = localStorage.getItem('token');
+  }
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'X-Request-ID': crypto.randomUUID(), // Request tracking
     'X-Client-Version': '1.0.0', // App version
   };
@@ -83,7 +98,10 @@ function calculateRetryDelay(retryCount: number): number {
 }
 
 function shouldRetry(error: HttpErrorResponse): boolean {
-  return INTERCEPTOR_CONFIG.RETRY_STATUS_CODES.includes(error.status);
+  return (
+    error instanceof HttpErrorResponse &&
+    INTERCEPTOR_CONFIG.RETRY_STATUS_CODES.includes(error.status)
+  );
 }
 
 function handleError(
@@ -96,7 +114,7 @@ function handleError(
     message: getErrorMessage(error),
     timestamp: new Date().toISOString(),
     path: error.url ?? 'unknown',
-    details: error.error
+    details: error.error,
   };
 
   // Handle specific error cases
@@ -128,6 +146,7 @@ function handleError(
 }
 
 function getErrorMessage(error: HttpErrorResponse): string {
+  // Rest of the getErrorMessage function remains the same
   if (error.error instanceof ErrorEvent) {
     return `Client Error: ${error.error.message}`;
   }
@@ -139,7 +158,7 @@ function getErrorMessage(error: HttpErrorResponse): string {
     case HttpStatusCode.Unauthorized:
       return 'Please sign in to continue.';
     case HttpStatusCode.Forbidden:
-      return 'You don\'t have permission to access this resource.';
+      return "You don't have permission to access this resource.";
     case HttpStatusCode.NotFound:
       return 'The requested resource was not found.';
     case HttpStatusCode.RequestTimeout:
